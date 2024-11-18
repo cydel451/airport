@@ -1,0 +1,48 @@
+{% extends 'airport/base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% if failures %}
+  <img src="{% static 'images/alert.png' %}" style="width: 250px; height: auto;">
+  {% for failure in failures %}
+    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+      <p>{{ failure.0 }} : engine failure. Dégagez les pistes et faites le atterrir au plus vite !</p>
+      <p id="crash_{{failure.0}}">Crash in : {{ failure.1 }}s</p>
+    </div>
+    <script type="text/javascript">
+      let timer = "{{ failure.1 }}";
+      setInterval( function() {
+        if (timer > 0) {
+          timer--;
+          document.getElementById('crash_' + "{{ failure.0 }}").innerText = 'Crash in : ' + timer + 's';
+        } else {
+          window.location.href = "{% url 'crash' %}";
+        }
+      }, 1000);
+    </script>
+  {% endfor %}
+{% endif %}
+{% if planes %}
+<table class="info-table table table-striped">
+    <thead>
+      <tr>
+        <th class="col-plane">Avion</th>
+        <th class="col-state">Etat</th>
+        <th class="col-place">Lieu</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for plane in planes %}
+            <tr>
+                <td class="name-plane"><a href="{% url 'flight_detail' pk=plane.pk %}">{{plane.id_character}}</a></td>
+                <td> {{ plane.etat }}</td>
+                <td> {{ plane.print_place }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<a href="{% url 'flight_detail' pk='INIT' %}">Réinitilaiser</a>
+{% endif %}
+{% endblock %}

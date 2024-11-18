@@ -1,0 +1,42 @@
+.page-header {
+    background-color: #ffffff;
+    margin-top: 0;
+    height: 450px;
+    margin-bottom: 40px;
+    padding: 20px 20px 20px 40px;
+    background-image: url(https://cdn03.collinson.cn/airport-guides/hero-images/marseilles/marseilles-c49acfac-cc08-4567-99c3-52371d73d16a.png?h=500&la=en&w=1920);
+}
+ 
+.page-header h1 a{
+    color: #031f73;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+.info-table th,
+.info-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.col-plane {
+    width: 20%;
+  }
+.col-state {
+  width: 20%;
+}
+.col-place {
+  width: 20%
+}
+
+.name-plane a,
+.name-plane a:hover,
+.name-plane a:visited,
+.name-plane a:active {
+  color: #031f73;
+  text-decoration: none;
+}
+
+.plane_detail h2 {
+  margin-bottom: 30px;
+}

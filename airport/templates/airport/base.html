@@ -1,0 +1,27 @@
+{% load static %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/airport.css' %}">
+  </head>
+  <body>
+    <header role="banner">
+      <div class="page-header">
+          <h1> <a href="/">Aéroport de Marseille Provence</a></h1>
+      </div>
+    </header>
+    
+    <div class="container mt-5">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <hr style="margin-top: 50px;">
+    <footer>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+          <p style="font-size: 12px;">Cyprien de L'Estoile - Ecole Centrale Méditerranée - 2024</p>
+          <img src="https://www.centrale-mediterranee.fr/themes/custom/central_mars_theme/logo.svg" style="height: 45px; width: auto;">
+      </div>
+    </footer>
+  </body>
+</html>

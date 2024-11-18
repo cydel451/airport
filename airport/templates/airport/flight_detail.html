@@ -1,0 +1,40 @@
+{% extends 'airport/base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% if failures %}
+  <img src="{% static 'images/alert.png' %}" style="width: 250px; height: auto;">
+  {% for failure in failures %}
+    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+      <p>{{ failure.0 }} : engine failure. Dégagez les pistes et faites le atterrir au plus vite !</p>
+      <p id="crash_{{failure.0}}">Crash in : {{ failure.1 }}s</p>
+    </div>
+    <script type="text/javascript">
+      let timer = "{{ failure.1 }}";
+      setInterval( function() {
+        if (timer > 0) {
+          timer--;
+          document.getElementById('crash_' + "{{ failure.0 }}").innerText = 'Crash in : ' + timer + 's';
+        } else {
+          window.location.href = "{% url 'crash' %}";
+        }
+      }, 1000);
+    </script>
+  {% endfor %}
+{% endif %}
+    <div class="plane_detail">
+        <h2>Ligne : {{plane.ligne}}</h2>
+        <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+            <h3>{{plane.id_character}}</h3>
+            <img src={{plane.photo}} style="height: 200px; width: auto;">
+            <img src={{plane.logo_compagnie}} style="height: 200px; width: auto;">
+            <form method="POST" class="post-form" style="margin-left: 10%;">{% csrf_token %}
+                <b>Changer : </b>{{ form.as_ul }}
+                <button type="submit" class="btn btn-outline-light">OK</button>
+                <a href="{% url 'plane_list' %}">Back</a>
+            </form>
+        </div>
+        <h3>Actuellement, cet avion {{plane.print_lieu}}</h3>
+    </div>
+{% endblock %}
